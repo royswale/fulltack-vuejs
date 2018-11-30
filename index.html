@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+
+	<style>
+		li.finished_task {
+			text-decoration: line-through;
+			font-style: italic;
+			background-color: beige;
+		}
+	</style>
+</head>
+<body>
+	<div id="root">
+		<h1>{{ message }}</h1>
+
+		<h2>所有任务</h2>
+		<ul>
+			<li :class="{'finished_task': task.finished}" v-for="(task, index) in tasks" :key="index" v-text="task.title"></li>
+		</ul>
+
+		<h2>未完成任务</h2>
+		<ul>
+			<li v-for="(task, index) in unfinishedTasks" :key="index" v-text="task.title"></li>
+		</ul>
+
+	</div>
+	
+	<script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el: '#root',
+			data: {
+				message: 'Fullstack Vue.js',
+				tasks: [
+					{title: 'finish Fullstack Vue.js', finished: false},
+					{title: 'finish Laravel-China tutorial #1', finished: false},
+					{title: 'walk 10000 steps today', finished: true},
+				],
+			},
+			methods: {
+
+			},
+			computed: {
+				unfinishedTasks() {
+					return this.tasks.filter(task => !task.finished)
+				},
+			},
+			mounted() {
+				console.log('mounted...')
+			}
+		});
+	
+	</script>
+</body>
+</html>
